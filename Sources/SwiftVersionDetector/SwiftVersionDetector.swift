@@ -37,6 +37,7 @@ public struct SwiftVersionDetector {
     /// - Throws: ``SwiftVersionDetector``.``Error`` if it is not able to detect the version numbers
     /// - Returns: An array of two ``Int`` being major and minor version numbers.
     static internal func detectRuntimeSwiftVersionNumbers() throws -> [Int] {
+#if os(macOS) || os(Linux)
         let process = Process()
         let stdout = Pipe()
         let shellPath = "/bin/sh"
@@ -71,6 +72,9 @@ public struct SwiftVersionDetector {
         }
         
         return try extractVersionNumbers(from: rawVersionString)
+#else
+#error("This package relies on the Process class which is only supported by macOS and Linux platforms. Select an appropriate device.")
+#endif
     }
     
     
