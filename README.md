@@ -28,19 +28,19 @@ print(version) // Prints "Swift version 5.3"
 
 ### Xcode Projects
 
-Select `File` -> `Swift Packages` -> `Add Package Dependency` and enter `https://github.com/Ventus218/SwiftVersionDetector`.
+Select `File` -> `Add Packages...` -> search for https://github.com/Ventus218/SwiftVersionDetector -> `Add Package` -> `Add Package`
 
 ### Swift Package Manager Projects
 
 You can add `SwiftVersionDetector` as a package dependency in your `Package.swift` file:
 
-Remember to update the version :)
+Remember to check for an updated version :)
 
 ```swift
 let package = Package(
     //...
     dependencies: [
-        .package(url: "https://github.com/Ventus218/SwiftVersionDetector", from: "x.y.z"),
+        .package(url: "https://github.com/Ventus218/SwiftVersionDetector", from: "1.0.0"),
     ],
     //...
 )
