@@ -44,7 +44,6 @@ public struct SwiftVersionDetector {
         
         process.environment = ProcessInfo.processInfo.environment
         process.arguments = ["-c", command]
-        print(process.arguments!)
         process.standardInput = nil
         process.standardOutput = stdout
         process.standardError = Pipe()
