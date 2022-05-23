@@ -73,4 +73,4 @@ Contributions to `SwiftVersionDetector` are most welcome. Check out some of the 
 
 ## License
 
-`SwiftVersionDetector` is available under the MIT license. See the [LICENSE file](./LICENSE) for more info.
+`SwiftVersionDetector` is available under the MIT license. See the [LICENSE file](./LICENSE.txt) for more info.
