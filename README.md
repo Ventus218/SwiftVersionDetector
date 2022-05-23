@@ -5,6 +5,7 @@
 <p>
     <img src="https://img.shields.io/badge/Swift-5.0+-F06C33.svg" />
     <img src="https://img.shields.io/badge/macOS-10.10+-179AC8.svg" />
+    <img src="https://img.shields.io/badge/Linux-compatible-blueviolet" />
     <a href="https://github.com/apple/swift-package-manager">
       <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" />
     </a>
