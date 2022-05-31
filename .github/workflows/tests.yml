@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    needs: setup-docker
     strategy:
       fail-fast: false
       matrix:
@@ -13,13 +14,16 @@ jobs:
     runs-on: ${{ matrix.os }}
     container:
       image: swift:${{ matrix.swift }}
-    steps:
-      - name: Installing Docker
-        uses: docker-practice/actions-setup-docker@master
-        if: matrix.os == 'macos-latest'
+    steps: 
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
         run: swift build -v
       - name: Run tests
         run: swift test -v
+  setup-docker:
+    runs-on: ${{ matrix.os }}
+    if: matrix.os == 'macos-latest'
+    steps:
+      - name: Installing Docker
+        uses: docker-practice/actions-setup-docker@master
