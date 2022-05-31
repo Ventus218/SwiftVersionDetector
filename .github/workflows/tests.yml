@@ -22,8 +22,7 @@ jobs:
       - name: Run tests
         run: swift test -v
   setup-docker:
-    runs-on: ${{ matrix.os }}
-    if: matrix.os == 'macos-latest'
+    runs-on: macos-latest
     steps:
       - name: Installing Docker
         uses: docker-practice/actions-setup-docker@master
