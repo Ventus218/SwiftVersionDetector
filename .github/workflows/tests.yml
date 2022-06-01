@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: swift build -v
+        run: swift build --enable-test-discovery -v
       - name: Run tests
         run: swift test --enable-test-discovery -v
         
