@@ -14,10 +14,6 @@ jobs:
     container: swift:${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Setup Swift ${{ matrix.swift }}
-        uses: swift-actions/setup-swift@v1.15.0
-        with:
-          swift-version: ${{ matrix.swift }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
