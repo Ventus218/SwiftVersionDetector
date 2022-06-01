@@ -3,22 +3,39 @@ name: tests
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+
+  ubuntu:
+    name: Swift ${{ matrix.swift }} on Ubuntu
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Setup Swift ${{ matrix.swift }}
-        uses: swift-actions/setup-swift@v1
-        with:
-          swift-version: ${{ matrix.swift }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
         run: swift build -v
       - name: Run tests
         run: swift test --enable-test-discovery -v
+        
+  macos:
+      name: Swift ${{ matrix.swift }} on MacOS
+      strategy:
+        fail-fast: false
+        matrix:
+          os: ["macos-latest"]
+          swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
+      runs-on: ${{ matrix.os }}
+      steps:
+        - name: Setup Swift ${{ matrix.swift }}
+          uses: swift-actions/setup-swift@v1
+          with:
+            swift-version: ${{ matrix.swift }}
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Build
+          run: swift build -v
+        - name: Run tests
+          run: swift test --enable-test-discovery -v
