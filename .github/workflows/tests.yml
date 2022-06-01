@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
-        swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
+        swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Swift ${{ matrix.swift }}
@@ -19,6 +19,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: swift build -v -enable-test-discovery
+        run: swift build -v
       - name: Run tests
-        run: swift test -v
+        run: swift test --enable-test-discovery -v
