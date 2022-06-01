@@ -6,10 +6,11 @@ jobs:
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
+    needs: setup-docker
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest"]
+        os: ["ubuntu-latest", "macos-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
     container:
       image: swift:${{ matrix.swift }}
@@ -22,22 +23,12 @@ jobs:
       - name: Run tests
         run: swift test --enable-test-discovery -v
         
-  macOS:
-    name: Swift ${{ matrix.swift }} on macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        os: ["macos-latest"]
-        swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
+  setup-docker:
+    name: Setup Docker
+    if: ${{ matrix.os }} == 'macos-latest'
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Setup Swift ${{ matrix.swift }}
-        uses: swift-actions/setup-swift@v1.15.0
-        with:
-          swift-version: ${{ matrix.swift }}
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build
-        run: swift build -v
-      - name: Run tests
-        run: swift test -v
+      - run: |
+          sudo hdiutil attach Docker.dmg
+          sudo /Volumes/Docker/Docker.app/Contents/MacOS/install
+          sudo hdiutil detach /Volumes/Docker
