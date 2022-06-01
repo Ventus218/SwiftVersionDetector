@@ -27,6 +27,5 @@ jobs:
     name: Setup Docker
     runs-on: macos-latest
     steps:
-      - run: |
-          brew cask install docker
-          sudo open -a Docker
+      - run: brew cask install docker
+      - run: sudo open -a Docker
