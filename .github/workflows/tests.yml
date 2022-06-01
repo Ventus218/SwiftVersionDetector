@@ -25,7 +25,7 @@ jobs:
         
   setup-docker:
     name: Setup Docker
-    if: ${{ matrix.os }} == 'macos-latest'
+    if: matrix.os == 'macos-latest'
     runs-on: ${{ matrix.os }}
     steps:
       - run: |
