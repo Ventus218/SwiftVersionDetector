@@ -1,6 +1,6 @@
 name: tests
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
 
@@ -8,6 +8,8 @@ jobs:
     name: Generating Linuxmain.swift for Linux testing
     runs-on: ["macos-latest"]
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Generating Linuxmain.swift
         run: swift test --generate-linuxmain -v
 
