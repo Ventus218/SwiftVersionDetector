@@ -11,7 +11,8 @@ jobs:
       matrix:
         os: ["ubuntu-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
-    container: swift:${{ matrix.swift }}
+    container:
+      image: swift:${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -28,7 +29,6 @@ jobs:
       matrix:
         os: ["macos-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
-    container: swift:${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Setup Swift ${{ matrix.swift }}
