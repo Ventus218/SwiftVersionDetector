@@ -24,6 +24,7 @@ jobs:
         run: swift test --enable-test-discovery -v
         
   setup-docker:
+    name: setup-docker
     runs-on: macos-latest
     steps:
       - run: |
