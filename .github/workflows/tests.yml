@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
 
   ubuntu:
-    name: Swift ${{ matrix.swift }} on ubuntu-latest
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
     needs: setup-docker
     strategy:
       fail-fast: false
