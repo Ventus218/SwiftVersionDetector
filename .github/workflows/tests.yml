@@ -28,5 +28,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: |
-          sudo brew cask install docker
+          brew cask install docker
           sudo open -a Docker
