@@ -5,24 +5,20 @@ on: [push, pull_request]
 jobs:
   build:
     name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
-    needs: setup-docker
     strategy:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest", "macos-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
     runs-on: ${{ matrix.os }}
-    container:
-      image: swift:${{ matrix.swift }}
-    steps: 
+    steps:
+      - name: Setup Swift ${{ matrix.swift }}
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: ${{ matrix.swift }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
         run: swift build -v
       - name: Run tests
         run: swift test -v
-  setup-docker:
-    runs-on: macos-latest
-    steps:
-      - name: Installing Docker
-        uses: docker-practice/actions-setup-docker@master
