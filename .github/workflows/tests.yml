@@ -5,12 +5,11 @@ on: [push, pull_request]
 jobs:
 
   ubuntu:
-    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
-    needs: setup-docker
+    name: Swift ${{ matrix.swift }} on ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest"]
         swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
     container:
       image: swift:${{ matrix.swift }}
@@ -23,9 +22,20 @@ jobs:
       - name: Run tests
         run: swift test --enable-test-discovery -v
         
-  setup-docker:
-    name: Setup Docker
-    runs-on: macos-latest
+  macos:
+    name: Swift ${{ matrix.swift }} on macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["macos-latest"]
+        swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
+    runs-on: ${{ matrix.os }}
     steps:
-      - run: brew install docker --cask
-      - run: sudo open -a Docker
+      - name: setup-docker
+        uses: docker-practice/actions-setup-docker@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
