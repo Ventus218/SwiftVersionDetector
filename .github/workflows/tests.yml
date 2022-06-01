@@ -35,10 +35,10 @@ jobs:
         if: matrix.swift == '5.0'
       - name: Build
         run: swift build --enable-test-discovery -v
-        if: ! matrix.swift == '5.0'
+        if: matrix.swift != '5.0'
       - name: Run tests
         run: swift test --enable-test-discovery -v
-        if: ! matrix.swift == '5.0'
+        if: matrix.swift != '5.0'
         
   macos:
     name: Default Swift version on ${{ matrix.os }}
