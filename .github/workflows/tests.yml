@@ -15,7 +15,6 @@ jobs:
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
-    needs: generate-linuxmain
     strategy:
       fail-fast: false
       matrix:
@@ -39,6 +38,25 @@ jobs:
       - name: Run tests
         run: swift test --enable-test-discovery -v
         if: matrix.swift != '5.0'
+        
+  ubuntu-swift-5_0:
+    name: Swift 5.0 on ubuntu-latest
+    needs: generate-linuxmain
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["ubuntu-latest"]
+        swift: ["5.0"]
+    container:
+      image: swift:${{ matrix.swift }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
         
   macos:
     name: Default Swift version on ${{ matrix.os }}
