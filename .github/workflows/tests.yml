@@ -28,6 +28,5 @@ jobs:
     runs-on: macos-latest
     steps:
       - run: |
-          sudo hdiutil attach Docker.dmg
-          sudo /Volumes/Docker/Docker.app/Contents/MacOS/install --accept-license
-          sudo hdiutil detach /Volumes/Docker
+          sudo brew cask install docker
+          sudo open -a Docker
