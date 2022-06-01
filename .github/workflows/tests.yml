@@ -33,16 +33,11 @@ jobs:
         run: swift test --enable-test-discovery -v
         
   macos:
-    name: Swift ${{ matrix.swift }} on macos-latest
+    name: Swift on macos-latest
     strategy:
       fail-fast: false
-      matrix:
-        os: ["macos-latest"]
-        swift: ["5.0", "5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     steps:
-      - name: setup-docker
-        uses: docker-practice/actions-setup-docker@v1
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
