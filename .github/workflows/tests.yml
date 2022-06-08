@@ -18,6 +18,12 @@ jobs:
           name: LinuxMain.swift
           path: Tests/LinuxMain.swift
           retention-days: 1
+      - name: Uploading XCTestManifests.swift artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: XCTestManifests.swift
+          path: Tests/SwiftVersionDetectorTests/XCTestManifests.swift
+          retention-days: 1
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
@@ -38,6 +44,11 @@ jobs:
         with:
           name: LinuxMain.swift
           path: Tests/LinuxMain.swift
+      - name: Downloading XCTestManifests.swift artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: XCTestManifests.swift
+          path: Tests/SwiftVersionDetectorTests/XCTestManifests.swift
       - run: ls -a
       - run: ls -a Tests/
       - name: Build
