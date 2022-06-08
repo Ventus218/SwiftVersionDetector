@@ -21,6 +21,7 @@ jobs:
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
+    needs: generate-linuxmain
     strategy:
       fail-fast: false
       matrix:
