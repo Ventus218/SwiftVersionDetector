@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
 
   generate-linuxmain:
-    name: Generating Linuxmain.swift for Linux testing
+    name: Generating LinuxMain.swift for Linux testing
     runs-on: macos-latest
     steps:
       - name: Checkout
@@ -21,6 +21,7 @@ jobs:
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
+    needs: generate-linuxmain
     strategy:
       fail-fast: false
       matrix:
@@ -41,6 +42,8 @@ jobs:
       - run: ls -a Tests/
       - name: Build
         run: swift build -v
+      - run: ls -a
+      - run: ls -a Tests/
       - name: Run tests
         run: swift test -v
         
