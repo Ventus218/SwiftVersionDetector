@@ -21,7 +21,6 @@ jobs:
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
-    needs: generate-linuxmain
     strategy:
       fail-fast: false
       matrix:
@@ -38,6 +37,8 @@ jobs:
         with:
           name: LinuxMain.swift
           path: Tests/LinuxMain.swift
+      - run: ls -a
+      - run: ls -a Tests/
       - name: Build
         run: swift build -v
       - name: Run tests
