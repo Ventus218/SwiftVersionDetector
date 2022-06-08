@@ -10,8 +10,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Generating Linuxmain.swift
+      - name: Generating LinuxMain.swift
         run: swift test --generate-linuxmain -v
+      - name: Uploading LinuxMain.swift artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: LinuxMain.swift
+          path: Tests/LinuxMain.swift
+          retention-days: 1
 
   ubuntu:
     name: Swift ${{ matrix.swift }} on ubuntu-latest
@@ -26,18 +32,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Downloading LinuxMain.swift artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: LinuxMain.swift
+          path: Tests/LinuxMain.swift
       - name: Build
         run: swift build -v
-        if: matrix.swift == '5.0'
       - name: Run tests
         run: swift test -v
-        if: matrix.swift == '5.0'
-      - name: Build
-        run: swift build --enable-test-discovery -v
-        if: matrix.swift != '5.0'
-      - name: Run tests
-        run: swift test --enable-test-discovery -v
-        if: matrix.swift != '5.0'
         
   ubuntu-swift-5_0:
     name: Swift 5.0 on ubuntu-latest
