@@ -8,8 +8,10 @@ final class SwiftVersionDetectorTests: XCTestCase {
     func testSwiftVersionDetection() throws {
         let version = try SwiftVersionDetector.detectRuntimeSwiftVersion()
         
-#if swift(>=5.6)
-        XCTAssertTrue(version.major > 5 || (version.major == 5 && version.minor >= 6))
+#if swift(>=5.7)
+        XCTAssertTrue(version.major > 5 || (version.major == 5 && version.minor >= 7))
+#elseif swift(>=5.6)
+        XCTAssertTrue(version.major == 5 && version.minor == 6)
 #elseif swift(>=5.5)
         XCTAssertTrue(version.major == 5 && version.minor == 5)
 #elseif swift(>=5.4)
