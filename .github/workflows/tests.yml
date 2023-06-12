@@ -4,19 +4,16 @@ on: [pull_request]
 
 jobs:
   ubuntu:
-    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
+    name: Swift ${{ matrix.swift }} on ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-latest", "macos-11", "macos-12", "macos-13", "macos-latest"]
+        os: ["ubuntu-latest"]
         swift: ["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "5.7", "5.8", "latest"]
-    # container:
-    #   image: swift:${{ matrix.swift }}
+    container:
+      image: swift:${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: swift-actions/setup-swift@65540b95f51493d65f5e59e97dcef9629ddf11bf
-        with:
-          swift-version: ${{ matrix.swift }}
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
@@ -24,18 +21,18 @@ jobs:
       - name: Run tests
         run: swift test -v --enable-test-discovery
         
-  # macos:
-  #   name: Default Swift version on ${{ matrix.os }}
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       os: ["macos-10.15", "macos-11", "macos-12", "macos-13", "macos-latest"]
-  #   runs-on: ${{ matrix.os }}
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
-  #     - name: Build
-  #       run: swift build -v
-  #     - name: Run tests
-  #       run: swift test -v
+  macos:
+    name: Default Swift version on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ["macos-10.15", "macos-11", "macos-12", "macos-13", "macos-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
         
