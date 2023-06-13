@@ -4,12 +4,12 @@ on: [pull_request]
 
 jobs:
   ubuntu:
-    name: Swift ${{ matrix.swift }} on ubuntu-latest
+    name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: ["ubuntu-latest"]
-        swift: ["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "latest"]
+        swift: ["5.1", "5.2", "5.3", "5.4", "5.5", "5.6", "5.7", "5.8", "latest"]
     container:
       image: swift:${{ matrix.swift }}
     runs-on: ${{ matrix.os }}
@@ -26,8 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["macos-10.15", "macos-11", "macos-12", "macos-latest"]
-    runs-on: macos-latest
+        os: ["macos-11", "macos-12", "macos-13", "macos-latest"]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
